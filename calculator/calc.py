@@ -1,4 +1,5 @@
 from tkinter import *
+import re
 
 def buttonPress(symbol, expr):
     if expr.get() == "Error":
@@ -6,9 +7,12 @@ def buttonPress(symbol, expr):
     else:
         expr.set(expr.get() + symbol)
 
+def cleanZeros(expr):
+    return re.sub(r'\b0+(?!\b)', '', expr.get())
+
 def evaluate(expr):
     try:
-        expr.set(str(eval(expr.get())))
+        expr.set(str(eval(cleanZeros(expr))))
     except:
         expr.set("Error")
 
